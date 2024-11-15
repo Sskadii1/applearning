@@ -1,0 +1,24 @@
+package com.example.learnkorean
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val lessons = listOf("Greetings", "Numbers", "Basic Phrases")
+        val recyclerView: RecyclerView = findViewById(R.id.lessonRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = LessonAdapter(lessons) { lesson ->
+            val intent = Intent(this, FlashcardActivity::class.java)
+            intent.putExtra("lesson", lesson)
+            startActivity(intent)
+        }
+    }
+}
