@@ -1,0 +1,23 @@
+class LessonAdapter(
+    private val lessons: List<String>,
+    private val onClick: (String) -> Unit
+) : RecyclerView.Adapter<LessonAdapter.LessonViewHolder>() {
+
+    class LessonViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+        val lessonName: android.widget.TextView = itemView.findViewById(R.id.lessonName)
+    }
+
+    override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): LessonViewHolder {
+        val view = android.view.LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_lesson, parent, false)
+        return LessonViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
+        val lesson = lessons[position]
+        holder.lessonName.text = lesson
+        holder.itemView.setOnClickListener { onClick(lesson) }
+    }
+
+    override fun getItemCount(): Int = lessons.size
+}
